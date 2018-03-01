@@ -61,7 +61,7 @@ test('pdf.create(html).toBuffer(callback)', function (t) {
   pdf.create(html).toBuffer(function (err, pdf) {
     t.error(err)
     t.assert(Buffer.isBuffer(pdf), 'toBuffer(callback) returns a buffer instance as second cb argument')
-    t.assert(/^\%PDF-1.4/.test(pdf.slice(0, 100).toString()), 'the PDF buffer has a PDF Header')
+    t.assert(/^%PDF-1.4/.test(pdf.slice(0, 100).toString()), 'the PDF buffer has a PDF Header')
   })
 })
 
@@ -125,12 +125,12 @@ test('allows invalid phantomPath', function (t) {
   }
 
   pdf
-  .create(html, options)
-  .toFile(filename, function (error, pdf) {
-    t.assert(error instanceof Error, 'Returns an error')
-    t.equal(error.code, 'ENOENT', 'Error code is ENOENT')
-    t.error(pdf, 'PDF does not exist')
-  })
+    .create(html, options)
+    .toFile(filename, function (error, pdf) {
+      t.assert(error instanceof Error, 'Returns an error')
+      t.equal(error.code, 'ENOENT', 'Error code is ENOENT')
+      t.error(pdf, 'PDF does not exist')
+    })
 })
 
 test('allows custom page and footer options', function (t) {
@@ -146,12 +146,12 @@ test('allows custom page and footer options', function (t) {
   }
 
   pdf
-  .create(html, options)
-  .toFile(filename, function (error, pdf) {
-    t.error(error)
-    t.assert(pdf.filename === filename, 'Returns the filename from the phantom script')
-    t.assert(fs.existsSync(pdf.filename), 'Saves the pdf with a custom page size and footer')
-  })
+    .create(html, options)
+    .toFile(filename, function (error, pdf) {
+      t.error(error)
+      t.assert(pdf.filename === filename, 'Returns the filename from the phantom script')
+      t.assert(fs.existsSync(pdf.filename), 'Saves the pdf with a custom page size and footer')
+    })
 })
 
 test('allows different header and footer for first page', function (t) {
@@ -160,12 +160,12 @@ test('allows different header and footer for first page', function (t) {
   var enrichedHtml = fs.readFileSync(path.join(__dirname, 'multiple-pages.html'), 'utf8')
   var filename = path.join(__dirname, 'multiple-pages.pdf')
   pdf
-  .create(enrichedHtml, {quality: 100})
-  .toFile(filename, function (error, pdf) {
-    t.error(error)
-    t.assert(pdf.filename === filename, 'Returns the filename from the phantom script')
-    t.assert(fs.existsSync(pdf.filename), 'Saves the pdf with a custom page size and footer')
-  })
+    .create(enrichedHtml, {quality: 100})
+    .toFile(filename, function (error, pdf) {
+      t.error(error)
+      t.assert(pdf.filename === filename, 'Returns the filename from the phantom script')
+      t.assert(fs.existsSync(pdf.filename), 'Saves the pdf with a custom page size and footer')
+    })
 })
 
 test('load external css', function (t) {
@@ -174,12 +174,12 @@ test('load external css', function (t) {
   var enrichedHtml = fs.readFileSync(path.join(__dirname, 'external-css.html'), 'utf8')
   var filename = path.join(__dirname, 'external-css.pdf')
   pdf
-  .create(enrichedHtml)
-  .toFile(filename, function (error, pdf) {
-    t.error(error)
-    t.assert(pdf.filename === filename, 'Returns the filename from the phantom script')
-    t.assert(fs.existsSync(pdf.filename), 'Saves the pdf with a custom page size and footer')
-  })
+    .create(enrichedHtml)
+    .toFile(filename, function (error, pdf) {
+      t.error(error)
+      t.assert(pdf.filename === filename, 'Returns the filename from the phantom script')
+      t.assert(fs.existsSync(pdf.filename), 'Saves the pdf with a custom page size and footer')
+    })
 })
 
 test('load external js', function (t) {
@@ -188,12 +188,12 @@ test('load external js', function (t) {
   var enrichedHtml = fs.readFileSync(path.join(__dirname, 'external-js.html'), 'utf8')
   var filename = path.join(__dirname, 'external-js.pdf')
   pdf
-  .create(enrichedHtml, {phantomArgs: ['--ignore-ssl-errors=true']})
-  .toFile(filename, function (error, pdf) {
-    t.error(error)
-    t.assert(pdf.filename === filename, 'Returns the filename from the phantom script')
-    t.assert(fs.existsSync(pdf.filename), 'Saves the pdf with a custom page size and footer')
-  })
+    .create(enrichedHtml, {phantomArgs: ['--ignore-ssl-errors=true']})
+    .toFile(filename, function (error, pdf) {
+      t.error(error)
+      t.assert(pdf.filename === filename, 'Returns the filename from the phantom script')
+      t.assert(fs.existsSync(pdf.filename), 'Saves the pdf with a custom page size and footer')
+    })
 })
 
 test('load with cookies js', function (t) {
@@ -221,10 +221,10 @@ test('load with cookies js', function (t) {
         path: '/'
       }]
     })
-    .toFile(filename, function (error, pdf) {
-      server.close()
-      t.error(error, 'There must be no render error')
-      t.assert(fs.existsSync(pdf.filename), 'Saves the pdf')
-    })
+      .toFile(filename, function (error, pdf) {
+        server.close()
+        t.error(error, 'There must be no render error')
+        t.assert(fs.existsSync(pdf.filename), 'Saves the pdf')
+      })
   })
 })
